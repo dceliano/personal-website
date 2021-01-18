@@ -12,5 +12,3 @@ If you are curious about how this site works, see the post I wrote about it [her
 
 # About Me
 You can find a lot out about me by looking at the social media links on my homepage.
-
-You can also see my Yahoo Answers profile [here](https://answers.yahoo.com/activity/answers?show=S2SJSJIJ5ANVL3I3Y4ZY5OMDSQ&amp;t=g), where I used to answer math and physics questions.
