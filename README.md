@@ -1,32 +1,26 @@
 # Introduction
-This repo contains all the files for my personal website. The actual files which can be accessed on my website are in the indigo directory.
+This repo contains all the files for my personal website. The actual files which are pushed to S3 and which can be accessed on my website are in the `indigo/_site` directory.
 
-To Deploy to S3 (to be able to access it using domcc3.com):
+To deploy the website to S3 (to be able to access it using domcc3.com), `apt-get install awscli` then run `aws s3 sync _site s3://domcc3.com` (after setting up the keys using `aws configure`).
 
-	./deploy.sh
+To host the website locally, host the contents of `indigo/_site` using any local web server, such as `python3 -m http.server`.
 
-To Deploy Locally (to be able to access it using localhost):
+# Building the website (as of 18 Jan 2021)
 
-	./test_deploy.sh
+The following instructions will make the Ruby-based build process work properly on a freshly installed Debian 10 system - steps should be similar on any Linux system:
 
-# Building Jekyll (15 Oct 2018)
-This website uses Jekyll, with the [Indigo](https://github.com/sergiokopplin/indigo) template. Here were the commands I used to copy the template and build it myself:
+```
+apt-get install ruby gcc make g++ zlib1g-dev
+(I have no clue why you need so many dependencies, but you do.)
+gem install bundler
+export LC_ALL="C.UTF-8"
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+(I was getting a UTF-8 error, and setting those environment variables fixed it.)
+And finally:
+cd personal-website/indigo
+bundle exec jekyll build
+```
 
-	git clone https://github.com/sergiokopplin/indigo.git
-	cd indigo
-	bundle install		#installs any required gems (dependencies)
-	bundle exec /Library/Ruby/Gems/2.3.0/gems/jekyll-3.8.4/exe/jekyll build		#jekyll will not work if you don't have the required gems in the Gemfile.
-	cd _site
-	open index.html
-
-"bundle install" was breaking when it tried to install nokogiri, which was required for github-pages. The solution per [here](https://stackoverflow.com/questions/40038953/how-to-install-nokogiri-on-mac-os-sierra-10-12) was to type:
-
-	sudo gem install nokogiri -v 1.8.5 -- --use-system-libraries=true --with-xml2-include="$(xcrun --show-sdk-path)"/usr/include/libxml2
-
-## Final command, as of 12 Nov 2018:
-The final command (after reinstalling nokogiri and other bundles. Ruby gives me tons of problems -- especially when I update my version of MacOS.):
-
-	bundle exec jekyll build
-
-# A custom favorite icon
-The favicon can be generated from any image. This website https://realfavicongenerator.net took care of all the magic for me, and I copied the format from the indigo template.
+# The Favorite Icon
+Favicons can be generated from any image, using websites such as [this one](https://realfavicongenerator.net), which I used.
